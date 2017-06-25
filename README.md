@@ -40,7 +40,14 @@ shiny::shinyApp(ui, server)
 ```r
 
 library(ggplot2)
-
+ui <- fluidPage(
+  selectInput('var','Choose Variable',
+              choices = names(diamonds)[sapply(diamonds,function(x) inherits(x,c('character','factor')))],
+              selected = 'clarity'),
+  uiOutput('regexchoose'),
+  plotOutput("data")
+  )
+  
 server <- function(input, output, session) {
   
   output$regexchoose<-shiny::renderUI({
