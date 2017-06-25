@@ -13,7 +13,8 @@ regexSelect(input, output, session, data)
 
 \item{session}{The session of the shiny application}
 
-\item{data}{reactive element contains data}
+\item{data}{reactive element contains a character vector where matches are sought, 
+or an object which can be coerced by as.character to a character vector}
 }
 \value{
 reactive character vector
@@ -30,7 +31,7 @@ shiny::tableOutput("data")
 )
 
 server <- function(input, output, session) {
- curr_cols<-callModule(regexSelect, "a",shiny::reactive(iris))
+ curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
  
  observeEvent(curr_cols(),{
  cols_now<-curr_cols()

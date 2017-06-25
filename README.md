@@ -19,11 +19,11 @@ shiny::tableOutput("data")
 )
 
 server <- function(input, output, session) {
-  curr_cols<-callModule(regexSelect, "a",shiny::reactive(iris))
+  curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
   
   observeEvent(curr_cols(),{
   cols_now<-curr_cols()
-  if(length(cols_now)==0)  cols_now<-names(data())
+  if(length(cols_now)==0)  cols_now<-names(iris)
   output$data <- shiny::renderTable({iris[,cols_now , drop = FALSE]}, rownames = TRUE)
   })
 }

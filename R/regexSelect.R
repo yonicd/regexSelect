@@ -4,7 +4,8 @@
 #' @param input The input slot that will be used to access the value.
 #' @param output The output variable to read the list of values returned be regex query
 #' @param session The session of the shiny application
-#' @param data reactive element contains data 
+#' @param data reactive element contains a character vector where matches are sought, 
+#' or an object which can be coerced by as.character to a character vector
 #' @return reactive character vector
 #' @examples 
 #' if(interactive()){
@@ -14,7 +15,7 @@
 #')
 #'
 #'server <- function(input, output, session) {
-#'  curr_cols<-callModule(regexSelect, "a",shiny::reactive(iris))
+#'  curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
 #'  
 #'  observeEvent(curr_cols(),{
 #'  cols_now<-curr_cols()
@@ -31,13 +32,11 @@
 #' @import shiny
 regexSelect <- function(input, output, session, data) {
   
-  if(!inherits(data,'reactive')) data<-shiny::reactive(data)
-  
   current_cols<-shiny::eventReactive(input$variable,{
     
     if('enable'%in%input$grep){
       curr_cols<-switch((nchar(input$variable)==0)+1,
-                        grep(input$variable,names(data()),
+                        grep(input$variable,data(),
                              value=TRUE,
                              ignore.case = 'ignore.case'%in%input$grep,
                              perl = 'perl'%in%input$grep,
@@ -45,7 +44,7 @@ regexSelect <- function(input, output, session, data) {
                              invert='invert'%in%input$grep),
                         NULL)
     }else{
-      curr_cols<-switch((input$variable%in%names(data()))+1,names(data()),input$variable)
+      curr_cols<-switch((input$variable%in%data())+1,data(),input$variable)
     }
     
     curr_cols
@@ -55,7 +54,7 @@ regexSelect <- function(input, output, session, data) {
     if(!'retain'%in%input$grep){
       shiny::updateSelectizeInput(session=session,
                            inputId = 'variable',
-                           choices = names(data()),
+                           choices = data(),
                            selected = input$variable,
                            options = list(multiple=TRUE,create=TRUE))
     }
