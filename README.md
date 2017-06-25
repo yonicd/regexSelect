@@ -6,7 +6,9 @@ R package to enable regular expression searches within a shiny selectize object.
 devtools::install_github('yonicd/regexSelect')
 ```
 
-## Example
+## Examples
+
+### renderTable
 
 ```r
 
@@ -31,4 +33,32 @@ server <- function(input, output, session) {
 shiny::shinyApp(ui, server)
 
 }
+```
+
+### renderPlot
+
+```r
+
+library(ggplot2)
+
+server <- function(input, output, session) {
+  
+  output$regexchoose<-shiny::renderUI({
+    regexSelectUI(id = "a", label = input$var,choices = unique(diamonds[[input$var]]))
+  })
+  
+  observeEvent(input$var,{
+    curr_cols<-callModule(regexSelect, "a",shiny::reactive(unique(diamonds[[input$var]])))
+    
+    observeEvent(curr_cols(),{
+      cols_now<-curr_cols()
+      output$data <- shiny::renderPlot({
+        ggplot(diamonds[diamonds[[input$var]]%in%cols_now,],aes_string(x='table',y='carat',colour=input$var))+geom_point()
+      })
+    })    
+  })
+  
+}
+  
+shinyApp(ui, server)
 ```
