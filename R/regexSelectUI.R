@@ -39,6 +39,7 @@
 #' @rdname regexSelectUI
 #' @export 
 #' @import shiny
+#' @importFrom shinyjs useShinyjs
 regexSelectUI <- function(id, label, choices,checkbox.selected=c('enable','ignore.case'),checkbox.inline=TRUE,checkbox.show=FALSE) {
   
   ns <- shiny::NS(id)

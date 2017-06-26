@@ -3,3 +3,5 @@
 export(regexSelect)
 export(regexSelectUI)
 import(shiny)
+importFrom(shinyjs,hide)
+importFrom(shinyjs,useShinyjs)

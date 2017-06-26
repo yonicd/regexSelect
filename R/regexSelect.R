@@ -30,6 +30,7 @@
 #' @rdname regexSelect
 #' @export 
 #' @import shiny
+#' @importFrom shinyjs hide
 regexSelect <- function(input, output, session, data) {
   
   shinyjs::hide(id = 'grep')
