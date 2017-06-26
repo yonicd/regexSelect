@@ -5,7 +5,7 @@
 \title{FUNCTION_TITLE}
 \usage{
 regexSelectUI(id, label, choices, checkbox.selected = c("enable",
-  "ignore.case"), checkbox.inline = TRUE)
+  "ignore.case"), checkbox.inline = TRUE, checkbox.show = FALSE)
 }
 \arguments{
 \item{id}{id of shiny module used in regexSelect}
@@ -17,9 +17,11 @@ the value is displayed to the user. This can also be a named list whose elements
 lists or vectors. If this is the case, the outermost names will be used as the "optgroup" label for the elements 
 in the respective sublist. This allows you to group and label similar choices.}
 
-\item{checkbox.selected}{character,options of the checkbox to set as TRUE, see details, Default: c("enable", "ignore.case")}
+\item{checkbox.selected}{character, options of the checkbox to set as TRUE, see details, Default: c("enable", "ignore.case")}
 
 \item{checkbox.inline}{boolean, render the checkbox choices inline (i.e. horizontally), Default: TRUE}
+
+\item{checkbox.show}{boolean, show the checkbox options as part of UI output or hide them, Default: FALSE}
 }
 \value{
 A list of HTML elements that can be added to a UI definition.
@@ -32,7 +34,8 @@ checkbox.selected is used as a proxy for ellipses to pass arguments to a grep(se
 This makes the options in checkbox.selected the same as the arguments that pass to grep: ignore.case, perl,fixed and invert. In addition there
 are two more arguments that the user can set enable which toggles the grep functionality to return it to regular selectize with 
 options multiple=TRUE and create=TRUE. The other argument is retain, this lets the user control if the search terms are added to the selectize choices
-or to keep it as originally entered, there by converting the selectize into a search field.
+or to keep it as originally entered, there by converting the selectize into a search field. If checkbox.show is false the initial values passed through
+checkbox.selected will be used.
 }
 \examples{
 if(interactive()){

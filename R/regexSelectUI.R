@@ -6,13 +6,15 @@
 #' the value is displayed to the user. This can also be a named list whose elements are (either named or unnamed) 
 #' lists or vectors. If this is the case, the outermost names will be used as the "optgroup" label for the elements 
 #' in the respective sublist. This allows you to group and label similar choices.
-#' @param checkbox.selected character,options of the checkbox to set as TRUE, see details, Default: c("enable", "ignore.case")
+#' @param checkbox.selected character, options of the checkbox to set as TRUE, see details, Default: c("enable", "ignore.case")
 #' @param checkbox.inline boolean, render the checkbox choices inline (i.e. horizontally), Default: TRUE
+#' @param checkbox.show boolean, show the checkbox options as part of UI output or hide them, Default: FALSE
 #' @details checkbox.selected is used as a proxy for ellipses to pass arguments to a grep(selectize value,selectize choices,value=TRUE,...).
 #' This makes the options in checkbox.selected the same as the arguments that pass to grep: ignore.case, perl,fixed and invert. In addition there
 #' are two more arguments that the user can set enable which toggles the grep functionality to return it to regular selectize with 
 #' options multiple=TRUE and create=TRUE. The other argument is retain, this lets the user control if the search terms are added to the selectize choices
-#' or to keep it as originally entered, there by converting the selectize into a search field. 
+#' or to keep it as originally entered, there by converting the selectize into a search field. If checkbox.show is false the initial values passed through
+#' checkbox.selected will be used. 
 #' @return A list of HTML elements that can be added to a UI definition.
 #' @examples 
 #' if(interactive()){
@@ -37,11 +39,12 @@
 #' @rdname regexSelectUI
 #' @export 
 #' @import shiny
-regexSelectUI <- function(id, label, choices,checkbox.selected=c('enable','ignore.case'),checkbox.inline=TRUE) {
+regexSelectUI <- function(id, label, choices,checkbox.selected=c('enable','ignore.case'),checkbox.inline=TRUE,checkbox.show=FALSE) {
   
   ns <- shiny::NS(id)
   
-  shiny::tagList(
+  tagOut<-shiny::tagList(
+    switch(as.numeric(checkbox.show==TRUE)+1,shinyjs::useShinyjs(),list()),
     shiny::selectizeInput(inputId = ns("variable"),
                           label = label,
                           choices = choices,
@@ -56,4 +59,7 @@ regexSelectUI <- function(id, label, choices,checkbox.selected=c('enable','ignor
                               selected = checkbox.selected,
                               inline  = checkbox.inline)
   )
+  
+  
+  
 }
