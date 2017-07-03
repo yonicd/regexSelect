@@ -38,14 +38,21 @@ or to keep it as originally entered, there by converting the selectize into a se
 checkbox.selected will be used.
 }
 \examples{
+\donttest{
 if(interactive()){
 ui <- shiny::fluidPage(
 regexSelectUI(id = "a", label = "Variable:",choices = names(iris)),
 shiny::tableOutput("data")
 )
 
+
+ui.show <- shiny::fluidPage(
+regexSelectUI(id = "a", label = "Variable:",choices = names(iris),checkbox.show = TRUE),
+shiny::tableOutput("data")
+)
+
 server <- function(input, output, session) {
- curr_cols<-callModule(regexSelect, "a",shiny::reactive(iris))
+ curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
  
  observeEvent(curr_cols(),{
  cols_now<-curr_cols()
@@ -55,6 +62,7 @@ server <- function(input, output, session) {
 }
 
 shiny::shinyApp(ui, server)
-
+\dontrun{shiny::shinyApp(ui.show, server)}
+ }
  }
 }

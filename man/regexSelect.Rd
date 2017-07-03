@@ -24,9 +24,16 @@ Create a selectize list that can be used to choose a single or multiple items fr
 with extension for regular expression.
 }
 \examples{
+\donttest{
 if(interactive()){
 ui <- shiny::fluidPage(
 regexSelectUI(id = "a", label = "Variable:",choices = names(iris)),
+shiny::tableOutput("data")
+)
+
+
+ui.show <- shiny::fluidPage(
+regexSelectUI(id = "a", label = "Variable:",choices = names(iris),checkbox.show = TRUE),
 shiny::tableOutput("data")
 )
 
@@ -41,6 +48,7 @@ server <- function(input, output, session) {
 }
 
 shiny::shinyApp(ui, server)
-
+\dontrun{shiny::shinyApp(ui.show, server)}
+ }
  }
 }

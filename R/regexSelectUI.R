@@ -16,15 +16,22 @@
 #' or to keep it as originally entered, there by converting the selectize into a search field. If checkbox.show is false the initial values passed through
 #' checkbox.selected will be used. 
 #' @return A list of HTML elements that can be added to a UI definition.
-#' @examples 
+#' @examples
+#' \donttest{
 #' if(interactive()){
 #'ui <- shiny::fluidPage(
 #'regexSelectUI(id = "a", label = "Variable:",choices = names(iris)),
 #'shiny::tableOutput("data")
 #')
+#' 
+#' 
+#'ui.show <- shiny::fluidPage(
+#'regexSelectUI(id = "a", label = "Variable:",choices = names(iris),checkbox.show = TRUE),
+#'shiny::tableOutput("data")
+#')
 #'
 #'server <- function(input, output, session) {
-#'  curr_cols<-callModule(regexSelect, "a",shiny::reactive(iris))
+#'  curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
 #'  
 #'  observeEvent(curr_cols(),{
 #'  cols_now<-curr_cols()
@@ -34,7 +41,8 @@
 #'}
 #'
 #'shiny::shinyApp(ui, server)
-#'
+#'\dontrun{shiny::shinyApp(ui.show, server)}
+#'  }
 #'  }
 #' @rdname regexSelectUI
 #' @export 

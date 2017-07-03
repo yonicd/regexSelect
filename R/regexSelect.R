@@ -8,9 +8,16 @@
 #' or an object which can be coerced by as.character to a character vector
 #' @return reactive character vector
 #' @examples 
+#' \donttest{
 #' if(interactive()){
 #'ui <- shiny::fluidPage(
 #'regexSelectUI(id = "a", label = "Variable:",choices = names(iris)),
+#'shiny::tableOutput("data")
+#')
+#' 
+#' 
+#'ui.show <- shiny::fluidPage(
+#'regexSelectUI(id = "a", label = "Variable:",choices = names(iris),checkbox.show = TRUE),
 #'shiny::tableOutput("data")
 #')
 #'
@@ -25,7 +32,8 @@
 #'}
 #'
 #'shiny::shinyApp(ui, server)
-#'
+#'\dontrun{shiny::shinyApp(ui.show, server)}
+#'  }
 #'  }
 #' @rdname regexSelect
 #' @export 
@@ -60,6 +68,6 @@ regexSelect <- function(input, output, session, data) {
                            options = list(multiple=TRUE,create=TRUE))
     }
   })
-  
+
   return(current_cols)
   }
