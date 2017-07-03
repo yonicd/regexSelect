@@ -44,12 +44,7 @@ regexSelectUI <- function(id, label, choices,checkbox.selected=c('enable','ignor
   
   ns <- shiny::NS(id)
   
-  tagOut<-shiny::tagList(
-    switch(as.numeric(checkbox.show==TRUE)+1,shinyjs::useShinyjs(),list()),
-    shiny::selectizeInput(inputId = ns("variable"),
-                          label = label,
-                          choices = choices,
-                          options=list(multiple=TRUE,create = TRUE)),
+  checkbox_group<-function(checkbox.selected,checkbox.inline){
     shiny::checkboxGroupInput(inputId = ns('grep'),label = 'regex options',
                               choices = c('Enable'='enable',
                                           'Retain Searches'='retain',
@@ -58,9 +53,17 @@ regexSelectUI <- function(id, label, choices,checkbox.selected=c('enable','ignor
                                           'Fixed'='fixed',
                                           'Invert'='invert'),
                               selected = checkbox.selected,
-                              inline  = checkbox.inline)
-  )
+                              inline  = checkbox.inline)}
   
+  tagOut<-shiny::tagList(
+    shinyjs::useShinyjs(),
+    shiny::selectizeInput(inputId = ns("variable"),
+                          label = label,
+                          choices = choices,
+                          options=list(multiple=TRUE,create = TRUE)),
+    checkbox_group(checkbox.selected,checkbox.inline))
   
+  if(!checkbox.show) tagOut[[3]]=shinyjs::hidden(checkbox_group(checkbox.selected,checkbox.inline))
   
+  tagOut
 }
