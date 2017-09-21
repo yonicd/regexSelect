@@ -20,11 +20,10 @@ or an object which can be coerced by as.character to a character vector}
 reactive character vector
 }
 \description{
-Create a selectize list that can be used to choose a single or multiple items from a list of values
-with extension for regular expression.
+Create a selectize list that can be used to choose a single or multiple 
+items from a list of values with extension for regular expression.
 }
 \examples{
-\donttest{
 if(interactive()){
 ui <- shiny::fluidPage(
 regexSelectUI(id = "a", label = "Variable:",choices = names(iris)),
@@ -38,17 +37,19 @@ shiny::tableOutput("data")
 )
 
 server <- function(input, output, session) {
- curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
+ curr_cols<-shiny::callModule(regexSelect, "a",shiny::reactive(names(iris)))
  
- observeEvent(curr_cols(),{
+ shiny::observeEvent(curr_cols(),{
  cols_now<-curr_cols()
  if(length(cols_now)==0)  cols_now<-names(data())
  output$data <- shiny::renderTable({iris[,cols_now , drop = FALSE]}, rownames = TRUE)
  })
 }
 
+#do not show regex checkboxes
 shiny::shinyApp(ui, server)
-\dontrun{shiny::shinyApp(ui.show, server)}
- }
+
+#show regex checkboxes
+shiny::shinyApp(ui.show, server)
  }
 }

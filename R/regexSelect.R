@@ -1,6 +1,6 @@
 #' @title Create a selectize list input control with regular expression capabilities
-#' @description Create a selectize list that can be used to choose a single or multiple items from a list of values
-#' with extension for regular expression.
+#' @description Create a selectize list that can be used to choose a single or multiple 
+#' items from a list of values with extension for regular expression.
 #' @param input The input slot that will be used to access the value.
 #' @param output The output variable to read the list of values returned be regex query
 #' @param session The session of the shiny application
@@ -8,7 +8,6 @@
 #' or an object which can be coerced by as.character to a character vector
 #' @return reactive character vector
 #' @examples 
-#' \donttest{
 #' if(interactive()){
 #'ui <- shiny::fluidPage(
 #'regexSelectUI(id = "a", label = "Variable:",choices = names(iris)),
@@ -22,18 +21,20 @@
 #')
 #'
 #'server <- function(input, output, session) {
-#'  curr_cols<-callModule(regexSelect, "a",shiny::reactive(names(iris)))
+#'  curr_cols<-shiny::callModule(regexSelect, "a",shiny::reactive(names(iris)))
 #'  
-#'  observeEvent(curr_cols(),{
+#'  shiny::observeEvent(curr_cols(),{
 #'  cols_now<-curr_cols()
 #'  if(length(cols_now)==0)  cols_now<-names(data())
 #'  output$data <- shiny::renderTable({iris[,cols_now , drop = FALSE]}, rownames = TRUE)
 #'  })
 #'}
 #'
+#'#do not show regex checkboxes
 #'shiny::shinyApp(ui, server)
-#'\dontrun{shiny::shinyApp(ui.show, server)}
-#'  }
+#'
+#'#show regex checkboxes
+#'shiny::shinyApp(ui.show, server)
 #'  }
 #' @rdname regexSelect
 #' @export 
