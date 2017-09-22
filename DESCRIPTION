@@ -2,7 +2,7 @@ Package: regexSelect
 Version: 1.0.0
 Date: 2017-09-20
 Title: 'Shiny' 'Module' for Regular Expression Enabled 'Selectize' Objects
-Authors@R: person("Jonathan", "Sidi", email = "yonis@metrumrg.com", role = c("aut", "cre"))
+Authors@R: person("Jonathan", "Sidi", email = "yonicd@gmail.com", role = c("aut", "cre"))
 Description: 'Shiny' 'selectize' extension to add regular expression filtering capabilities to the
   'selectize' choice vector. 
 Depends:
