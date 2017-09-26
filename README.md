@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/yonicd/regexSelect.svg?branch=master)](https://travis-ci.org/yonicd/regexSelect)
+
 # regexSelect
 R package to enable regular expression searches within a shiny selectize object.
 
