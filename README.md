@@ -1,3 +1,6 @@
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/regexSelect)](https://cran.r-project.org/package=regexSelect)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/0.1.0/active.svg)](http://www.repostatus.org/#active) 
+![downloads](http://cranlogs.r-pkg.org/badges/regexSelect)
 [![Travis-CI Build Status](https://travis-ci.org/yonicd/regexSelect.svg?branch=master)](https://travis-ci.org/yonicd/regexSelect)
 
 # regexSelect
