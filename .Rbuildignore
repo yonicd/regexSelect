@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 Miscellaneous
 ^cran-comments\.md$
+^\.travis\.yml$
