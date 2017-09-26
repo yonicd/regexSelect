@@ -3,6 +3,6 @@
 language: R
 sudo: false
 cache: packages
-ignore:
+ignore_changes:
   - *.md
   - Miscellaneous/*
